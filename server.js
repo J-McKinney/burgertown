@@ -1,3 +1,4 @@
+var myPassword = process.env.PASSWORD;
 var express = require("express");
 var bodyParser = require("body-parser");
 var path = require("path");
@@ -14,8 +15,8 @@ var connection = mysql.createConnection({
     host: "localhost",
     port: 3306,
     user: "root",
-    password: "",
-    database: "_db"
+    password: "Fireb@ll1!",
+    database: "burgers_db"
 });
 connection.connect(function (err) {
     if (err) {
@@ -31,7 +32,7 @@ app.use(bodyParser.json());
 app.use(methodOverride('_method'));
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
-app.use(routes);
+// app.use("/", routes);
 
 
 app.listen(PORT, function () {
