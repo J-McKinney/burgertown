@@ -47,16 +47,22 @@ function objToSql(ob) {
 
 // Object for all our SQL statement functions.
 var orm = {
-  selectAll: function(tableInput, cb) {
+  // Function that returns all table entries
+  selectAll: function (tableInput, cb) {
+    // Construct the query string that returns all rows from the target table
     var queryString = "SELECT * FROM " + tableInput + ";";
-    connection.query(queryString, function(err, result) {
+    // Perform the database query
+    connection.query(queryString, function (err, result) {
       if (err) {
         throw err;
       }
+      // Return results in callback
       cb(result);
     });
   },
-  insertOne: function(table, cols, vals, cb) {
+  // Function that insert a single table entry
+  insertOne: function (table, cols, vals, cb) {
+    // Construct the query string that inserts a single row into the target table
     var queryString = "INSERT INTO " + table;
 
     queryString += " (";
@@ -66,20 +72,22 @@ var orm = {
     queryString += printQuestionMarks(vals.length);
     queryString += ") ";
 
-    console.log(queryString);
-
-    connection.query(queryString, vals, function(err, result) {
+    //console.log(queryString);
+    // Perform the database query
+    connection.query(queryString, vals, function (err, result) {
       if (err) {
         throw err;
       }
-
+      // Return results in callback
       cb(result);
     });
   },
+  // Function that updates a single table entry
   // An example of objColVals would be {name: panther, sleepy: true}
   // The condition is what burger we're updating/devouring
   // ObtColVals would be the colums and values that you want to update
-  updateOne: function(table, objColVals, condition, cb) {
+  updateOne: function (table, objColVals, condition, cb) {
+    // Construct the query string that updates a single entry in the target table
     var queryString = "UPDATE " + table;
 
     queryString += " SET ";
@@ -87,30 +95,30 @@ var orm = {
     queryString += " WHERE ";
     queryString += condition;
 
-    console.log(queryString);
-    
-    connection.query(queryString, function(err, result) {
+    //console.log(queryString);
+    // Perform the database query
+    connection.query(queryString, function (err, result) {
       if (err) {
         throw err;
       }
-
+      // Return results in callback
       cb(result);
     });
   },
-//   deleteOne: function(table, condition, cb) {
-//     var queryString = "DELETE FROM " + table;
-//     queryString += " WHERE ";
-//     queryString += condition;
+  //   deleteOne: function(table, condition, cb) {
+  //     var queryString = "DELETE FROM " + table;
+  //     queryString += " WHERE ";
+  //     queryString += condition;
 
-//     connection.query(queryString, function(err, result) {
-//       if (err) {
-//         throw err;
-//       }
+  //     connection.query(queryString, function(err, result) {
+  //       if (err) {
+  //         throw err;
+  //       }
 
-//       cb(result);
-//     });
-//   }
+  //       cb(result);
+  //     });
+  //   }
 };
 
-// Export the orm object for the model (cat.js).
+// Export the orm object for the model (burger.js).
 module.exports = orm;

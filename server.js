@@ -1,7 +1,5 @@
 // Dependencies
-// require('dotenv').config();
-// var myPassword = process.env.PASSWORD;
-// console.log(myPassword);
+const dotenv = require('dotenv').config();
 var express = require("express");
 var bodyParser = require("body-parser");
 var methodOverride = require("method-override");
@@ -27,4 +25,4 @@ app.listen(PORT, function () {
     // Log (server-side) when our server has started
     console.log("App listening on PORT: " + PORT);
 });
-// console.log('node process: ' + process.env.NODE_ENV)
+module.exports = dotenv;
